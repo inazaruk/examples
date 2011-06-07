@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:pkg="http://schemas.android.com/apk/res/com.inazaruk.example.menuattributes">
+    
+    <group android:id="@+id/primary_group" 
+    		pkg:improtance="high">
+    
+        <item android:id="@+id/item_a" 
+        	  pkg:weight="30" 
+        	  pkg:background="#FFFF0000" />
+        	  
+        <item android:id="@+id/item_b" 
+        	  pkg:weight="20" />
+        
+    </group>
+    
+    <group android:id="@+id/secondary_group"
+    		pkg:improtance="low"
+    		pkg:title="asdfsdf">
+    
+        <item android:id="@+id/item_c"
+        		pkg:weight="25"/>
+        		
+        <item android:id="@+id/item_d"
+        	  pkg:weight="5" 
+        	  pkg:background="#FF0000FF"/>
+        
+    </group>
+    
+</menu>
