@@ -9,8 +9,7 @@
 <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="Hello World, ACTIVITY_ENTRY_NAME"
-    lib:xattr="test"
+    android:text="Hello World, ACTIVITY_ENTRY_NAME"    
     />
 </LinearLayout>
 
