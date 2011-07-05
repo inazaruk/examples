@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="Activity C"
+	    />
+			    
+	<Button 
+		android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="close"
+	    android:onClick="onCloseClicked"/>
+    
+    <Button 
+		android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="auto-close"
+	    android:onClick="onAutoCloseClicked"/>    
+    
+</LinearLayout>
