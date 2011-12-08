@@ -44,7 +44,7 @@ public class LocalActivityManagerFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        mLocalActivityManager.dispatchResume();
+        mLocalActivityManager.dispatchPause(getActivity().isFinishing());
     }    
     
     @Override
