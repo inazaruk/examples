@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Message;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.os.StrictMode.VmPolicy;
@@ -19,22 +18,6 @@ public class App extends Application {
         super.onCreate();        
     }
         
-    @TargetApi(16)
-    private static class StrictModeHandler_v16 extends Handler {
-        private static final int ENABLE_STRICT_MODE = 1; 
-        
-        public void enableStrictModePostOnCreate() {
-            sendMessageAtFrontOfQueue(this.obtainMessage(ENABLE_STRICT_MODE));
-        }
-        
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == ENABLE_STRICT_MODE) {
-                doEnableStrictMode();
-            }
-        }
-    }   
-        
     private static void enableStrictMode() {
         if (Build.VERSION.SDK_INT >= 9) {
             doEnableStrictMode();
@@ -42,7 +25,12 @@ public class App extends Application {
             
         if (Build.VERSION.SDK_INT >= 16) {
             //restore strict mode after onCreate() returns.
-            new StrictModeHandler_v16().enableStrictModePostOnCreate();        
+            new Handler().postAtFrontOfQueue(new Runnable() {
+                @Override
+                public void run() {
+                    doEnableStrictMode();
+                }
+            });
         }
     }
 
