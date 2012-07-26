@@ -1,0 +1,1 @@
+All code and files in this folder and their subfolders are under (Apache License, Version 2.0)[http://www.apache.org/licenses/LICENSE-2.0.html] (unless otherwise is stated in file header).
