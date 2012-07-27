@@ -1,0 +1,6 @@
+<ivy-module version="1.0">
+    <info organisation="com.sherlockactionbar" module="com.sherlockactionbar" />	
+	<dependencies>
+		<dependency org="android" name="android-support" rev="latest.integration" />
+	</dependencies>
+</ivy-module>

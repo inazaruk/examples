@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="builder" xmlns:inz="antlib:com.inazaruk.ant">
+
+    <!-- Import build system -->
+    <inz:root-import marker="rootdir" file="builder/builder.xml" />
+    
+    <!-- Optional local project customization-->
+    <import file="project.xml" optional="true" />
+            
+</project>
