@@ -1,1 +1,1 @@
-This example was moved to separate repository: (map-fragment)[https://github.com/inazaruk/map-fragment]
+This example was moved to separate repository: [map-fragment](https://github.com/inazaruk/map-fragment)
