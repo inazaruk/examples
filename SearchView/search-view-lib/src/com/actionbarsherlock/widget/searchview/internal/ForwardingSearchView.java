@@ -33,28 +33,26 @@ public abstract class ForwardingSearchView extends LinearLayout implements ISear
         
         int maxWidth = a.getDimensionPixelSize(R.styleable.SearchView_maxWidth, -1);
         if (maxWidth != -1) {
-            setMaxWidth(maxWidth);
+            mSearchView.setMaxWidth(maxWidth);
         }
         CharSequence queryHint = a.getText(R.styleable.SearchView_queryHint);
         if (!TextUtils.isEmpty(queryHint)) {
-            setQueryHint(queryHint);
+            mSearchView.setQueryHint(queryHint);
         }
         int imeOptions = a.getInt(R.styleable.SearchView_imeOptions, -1);
         if (imeOptions != -1) {
-            setImeOptions(imeOptions);
+            mSearchView.setImeOptions(imeOptions);
         }
         int inputType = a.getInt(R.styleable.SearchView_inputType, -1);
         if (inputType != -1) {
-            setInputType(inputType);
+            mSearchView.setInputType(inputType);
         }
         
         boolean focusable = true;
         focusable = a.getBoolean(R.styleable.SearchView_focusable, focusable);        
         a.recycle();
-        
-        
-        //TODO: should probably make mSearchView focusable instead
-        setFocusable(focusable);
+                
+        mSearchView.setFocusable(focusable);
     }
     
     abstract protected ISearchView createSearchView(Context context, AttributeSet attrs);

@@ -159,6 +159,16 @@ public class SearchView extends ForwardingSearchView {
         public void setSearchableInfo(SearchableInfo searchable) {
             mNativeSearchView.setSearchableInfo(searchable);    
         }
+        
+        @Override
+        public void setFocusable(boolean focusable) {
+            mNativeSearchView.setFocusable(focusable);            
+        }
+        
+        @Override
+        public void clearFocus() {
+            mNativeSearchView.clearFocus();
+        }
 
         @Override
         public void setOnQueryTextListener(final OnQueryTextListener listener) {

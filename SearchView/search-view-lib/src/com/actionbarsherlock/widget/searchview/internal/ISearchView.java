@@ -63,5 +63,9 @@ public interface ISearchView {
     void setOnSuggestionListener(OnSuggestionListener listener);
 
     void setOnSearchClickListener(OnClickListener listener);
+    
+    void setFocusable(boolean focusable);
+    
+    void clearFocus();    
 
 }
