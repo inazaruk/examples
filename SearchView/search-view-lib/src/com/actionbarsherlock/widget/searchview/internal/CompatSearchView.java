@@ -124,7 +124,7 @@ public class CompatSearchView extends LinearLayout implements CollapsibleActionV
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.search_view, this, true);
+        inflater.inflate(R.layout.abs__search_view, this, true);
 
         mSearchButton = findViewById(R.id.search_button);
         mQueryTextView = (SearchAutoComplete) findViewById(R.id.search_src_text);
@@ -378,7 +378,7 @@ public class CompatSearchView extends LinearLayout implements CollapsibleActionV
 
     private int getPreferredWidth() {
         return getContext().getResources()
-                .getDimensionPixelSize(R.dimen.search_view_preferred_width);
+                .getDimensionPixelSize(R.dimen.abs__search_view_preferred_width);
     }
 
     private void updateViewsVisibility(final boolean collapsed) {

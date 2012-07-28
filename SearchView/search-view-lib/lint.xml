@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconDuplicates">
+        <ignore path="res\drawable-hdpi\abs__list_selector_background_focused_light.9.png" />
+        <ignore path="res\drawable-mdpi\abs__textfield_search_right_selected_holo_light.9.png" />
+        <ignore path="res\drawable-mdpi\abs__textfield_search_selected_holo_light.9.png" />
+        <ignore path="res\drawable-xhdpi\abs__list_selector_background_focused_light.9.png" />
+        <ignore path="res\drawable-xhdpi\abs__textfield_search_right_selected_holo_light.9.png" />
+    </issue>
+    <issue id="IconDuplicatesConfig" severity="ignore" />
+</lint>

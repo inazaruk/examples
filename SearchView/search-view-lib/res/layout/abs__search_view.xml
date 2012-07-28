@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:src="?attr/searchViewSearchIcon"
-        android:contentDescription="@string/searchview_description_search"
+        android:contentDescription="@string/abs__searchview_description_search"
     />
 
     <LinearLayout
@@ -49,10 +49,10 @@
 
         <ImageView
             android:id="@+id/search_mag_icon"
-            android:layout_width="@dimen/dropdownitem_icon_width"
+            android:layout_width="@dimen/abs__dropdownitem_icon_width"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:layout_marginLeft="@dimen/dropdownitem_text_padding_left"
+            android:layout_marginLeft="@dimen/abs__dropdownitem_text_padding_left"
             android:layout_gravity="center_vertical"
             android:src="?attr/searchViewSearchIcon"
             android:visibility="gone"
@@ -73,17 +73,17 @@
                 android:layout_height="36dip"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:minWidth="@dimen/search_view_text_min_width"
+                android:minWidth="@dimen/abs__search_view_text_min_width"
                 android:layout_gravity="bottom"
                 android:textColor="?attr/searchViewTextColor"
-                android:paddingLeft="@dimen/dropdownitem_text_padding_left"
-                android:paddingRight="@dimen/dropdownitem_text_padding_right"
+                android:paddingLeft="@dimen/abs__dropdownitem_text_padding_left"
+                android:paddingRight="@dimen/abs__dropdownitem_text_padding_right"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:background="@null"
                 android:inputType="text"                
                 android:imeOptions="actionSearch"             
-                android:contentDescription="@string/searchview_description_query"
+                android:contentDescription="@string/abs__searchview_description_query"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
             />
@@ -98,7 +98,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:src="?attr/searchViewCloseIcon"
                 android:focusable="true"
-                android:contentDescription="@string/searchview_description_clear"
+                android:contentDescription="@string/abs__searchview_description_clear"
             />
 
         </LinearLayout>
@@ -121,7 +121,7 @@
                 android:src="?attr/searchViewGoIcon"
                 android:visibility="gone"
                 android:focusable="true"
-                android:contentDescription="@string/searchview_description_submit"
+                android:contentDescription="@string/abs__searchview_description_submit"
             />
                        
         </LinearLayout>

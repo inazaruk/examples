@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!-- Copyright (C) 2010 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_above_anchor="true"
-        android:drawable="@drawable/spinner_dropdown_background_up" />
-    <item android:drawable="@drawable/spinner_dropdown_background_down" />
+    <item android:state_enabled="false"
+        android:drawable="@drawable/abs__ic_clear_disabled" />
+    <item
+         android:drawable="@drawable/abs__ic_clear_normal" />
 </selector>
-

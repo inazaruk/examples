@@ -20,17 +20,17 @@
 <resources>
 
     <!-- Text padding for dropdown items -->
-    <dimen name="dropdownitem_text_padding_left">8dip</dimen>
+    <dimen name="abs__dropdownitem_text_padding_left">8dip</dimen>
 
     <!-- Text padding for dropdown items -->
-    <dimen name="dropdownitem_text_padding_right">8dip</dimen>
+    <dimen name="abs__dropdownitem_text_padding_right">8dip</dimen>
 
     <!-- Width of the icon in a dropdown list -->
-    <dimen name="dropdownitem_icon_width">32dip</dimen>
+    <dimen name="abs__dropdownitem_icon_width">32dip</dimen>
     
     <!-- Minimum width of the search view text entry area. -->
-    <dimen name="search_view_text_min_width">160dip</dimen>
+    <dimen name="abs__search_view_text_min_width">160dip</dimen>
 
     <!-- Preferred width of the search view. -->
-    <dimen name="search_view_preferred_width">320dip</dimen>
+    <dimen name="abs__search_view_preferred_width">320dip</dimen>
 </resources>
