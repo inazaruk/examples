@@ -3,12 +3,12 @@ package com.inazaruk.searchview;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.searchview.OnQueryTextListener;
+import com.actionbarsherlock.widget.searchview.SearchView;
 
+import android.annotation.TargetApi;
 import android.os.Bundle;
-import android.widget.backport.SearchView;
-import android.widget.backport.SearchView.OnQueryTextListener;
-
-import com.inazaruk.searchview.R;
+import android.util.Log;
 
 public class MainActivity extends SherlockActivity implements OnQueryTextListener {
 
@@ -19,15 +19,47 @@ public class MainActivity extends SherlockActivity implements OnQueryTextListene
     }
 
     @Override
+    
     public boolean onCreateOptionsMenu(Menu menu) {
+       
+        addCompatSearch(menu);
+        try {
+          addSearch(menu);
+        } catch (Throwable ex) {
+            Log.e("ERROR", "Failed to add search", ex);
+        }
+        return true;
+    }
+    
+    private void addCompatSearch(Menu menu) {
         MenuItem item = menu.add("search");
         item.setIcon(android.R.drawable.ic_menu_search);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         SearchView sv = new SearchView(this);
         sv.setQuery("test", false);
         sv.setOnQueryTextListener(this);
         item.setActionView(sv);
-        return true;
+    }
+    
+    @TargetApi(11)
+    private void addSearch(Menu menu) {
+        android.widget.SearchView sv = new android.widget.SearchView(this);
+        sv.setQuery("test2", false);
+        sv.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return MainActivity.this.onQueryTextSubmit(query);
+            }
+            
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return MainActivity.this.onQueryTextChange(newText);
+            }
+        });
+        MenuItem item = menu.add("search2");
+        item.setIcon(android.R.drawable.ic_menu_search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item.setActionView(sv);
     }
     
     @Override
