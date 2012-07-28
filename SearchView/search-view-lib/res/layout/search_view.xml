@@ -24,20 +24,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     >
-
-    <!-- This is actually used for the badge icon *or* the badge label (or neither) -->
-    <TextView
-        android:id="@+id/search_badge"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="2dip"
-        android:drawablePadding="0dip"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary"
-        android:visibility="gone"
-    />
-
+   
     <ImageView
         android:id="@+id/search_button"
         style="?android:attr/actionButtonStyle"
@@ -93,13 +80,15 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:background="@null"
-                android:inputType="text|textAutoComplete|textNoSuggestions"
+                android:inputType="text"                
                 android:imeOptions="actionSearch"
                 android:dropDownHeight="wrap_content"
                 android:dropDownAnchor="@id/search_edit_frame"
                 android:dropDownVerticalOffset="0dip"
                 android:dropDownHorizontalOffset="0dip"
                 android:contentDescription="@string/searchview_description_query"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
             />
 
             <ImageView
@@ -137,20 +126,7 @@
                 android:focusable="true"
                 android:contentDescription="@string/searchview_description_submit"
             />
-
-            <ImageView
-                android:id="@+id/search_voice_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="16dip"
-                android:paddingRight="16dip"
-                android:src="?attr/searchViewVoiceIcon"
-                android:background="?attr/selectableItemBackground"
-                android:visibility="gone"
-                android:focusable="true"
-                android:contentDescription="@string/searchview_description_voice"
-            />
+                       
         </LinearLayout>
     </LinearLayout>
 

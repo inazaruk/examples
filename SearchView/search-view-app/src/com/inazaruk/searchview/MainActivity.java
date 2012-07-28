@@ -38,6 +38,8 @@ public class MainActivity extends SherlockActivity implements OnQueryTextListene
         SearchView sv = new SearchView(this);
         sv.setQuery("test", false);
         sv.setOnQueryTextListener(this);
+        sv.setSubmitButtonEnabled(true);
+        sv.setQueryHint("TEST HINT");
         item.setActionView(sv);
     }
     
@@ -64,11 +66,13 @@ public class MainActivity extends SherlockActivity implements OnQueryTextListene
     
     @Override
     public boolean onQueryTextChange(String newText) {
+        Log.e("CHANGE", newText);
         return false;
     }
     
     @Override
     public boolean onQueryTextSubmit(String query) {
+        Log.e("SUBMIT", query);
         return false;
     }
 }
