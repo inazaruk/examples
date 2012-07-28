@@ -5,6 +5,7 @@ import com.actionbarsherlock.widget.searchview.OnCloseListener;
 import com.actionbarsherlock.widget.searchview.OnQueryTextListener;
 import com.actionbarsherlock.widget.searchview.OnSuggestionListener;
 
+import android.annotation.TargetApi;
 import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -62,21 +63,25 @@ public abstract class ForwardingSearchView extends LinearLayout implements ISear
         mSearchView.setSearchableInfo(searchable);
     }
 
+    @TargetApi(14)
     @Override
     public void setImeOptions(int imeOptions) {
         mSearchView.setImeOptions(imeOptions);
     }
 
+    @TargetApi(16)
     @Override
     public int getImeOptions() {
         return mSearchView.getImeOptions();
     }
 
+    @TargetApi(14)
     @Override
     public void setInputType(int inputType) {
         mSearchView.setInputType(inputType);
     }
 
+    @TargetApi(16)
     @Override
     public int getInputType() {
         return mSearchView.getInputType();
@@ -122,6 +127,7 @@ public abstract class ForwardingSearchView extends LinearLayout implements ISear
         mSearchView.setQueryHint(hint);
     }
 
+    @TargetApi(16)
     @Override
     public CharSequence getQueryHint() {
         return mSearchView.getQueryHint();
@@ -182,6 +188,7 @@ public abstract class ForwardingSearchView extends LinearLayout implements ISear
         mSearchView.setMaxWidth(maxpixels);
     }
 
+    @TargetApi(16)
     @Override
     public int getMaxWidth() {
         return mSearchView.getMaxWidth();

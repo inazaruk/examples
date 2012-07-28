@@ -40,6 +40,7 @@ public class MainActivity extends SherlockActivity implements OnQueryTextListene
         sv.setOnQueryTextListener(this);
         sv.setSubmitButtonEnabled(true);
         sv.setQueryHint("TEST HINT");
+        sv.setImeOptions(0);
         item.setActionView(sv);
     }
     

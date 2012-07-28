@@ -5,6 +5,7 @@ import com.actionbarsherlock.widget.searchview.OnCloseListener;
 import com.actionbarsherlock.widget.searchview.OnQueryTextListener;
 import com.actionbarsherlock.widget.searchview.OnSuggestionListener;
 
+import android.annotation.TargetApi;
 import android.app.SearchableInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -12,12 +13,16 @@ import android.widget.CursorAdapter;
 
 public interface ISearchView {
     
+    @TargetApi(14)
     void setImeOptions(int imeOptions);
 
+    @TargetApi(16)
     int getImeOptions();
     
+    @TargetApi(14)
     void setInputType(int inputType);
 
+    @TargetApi(16)
     int getInputType();
     
     CharSequence getQuery();
@@ -26,6 +31,7 @@ public interface ISearchView {
 
     void setQueryHint(CharSequence hint);
 
+    @TargetApi(16)
     CharSequence getQueryHint();
 
     void setIconifiedByDefault(boolean iconified);
@@ -50,6 +56,7 @@ public interface ISearchView {
 
     void setMaxWidth(int maxpixels);
 
+    @TargetApi(16)
     int getMaxWidth();
    
     void setSearchableInfo(SearchableInfo searchable);
