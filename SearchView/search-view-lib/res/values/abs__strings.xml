@@ -21,9 +21,6 @@
 
     <!-- Strings used for search bar --><skip />
 
-    <!-- This is the default button label in the system-wide search UI.
-         It is also used by the home screen's search "widget". It should be short -->
-    <string name="abs__search_go">Search</string>
     <!-- SearchView accessibility description for search button [CHAR LIMIT=NONE] -->
     <string name="abs__searchview_description_search">Search</string>
     <!-- SearchView accessibility description for search text field [CHAR LIMIT=NONE] -->
@@ -32,6 +29,5 @@
     <string name="abs__searchview_description_clear">Clear query</string>
     <!-- SearchView accessibility description for submit button [CHAR LIMIT=NONE] -->
     <string name="abs__searchview_description_submit">Submit query</string>
-    <!-- SearchView accessibility description for voice button [CHAR LIMIT=NONE] -->
-    <string name="abs__searchview_description_voice">Voice search</string>
+        
 </resources>

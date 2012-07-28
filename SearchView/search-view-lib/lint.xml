@@ -7,5 +7,5 @@
         <ignore path="res\drawable-xhdpi\abs__list_selector_background_focused_light.9.png" />
         <ignore path="res\drawable-xhdpi\abs__textfield_search_right_selected_holo_light.9.png" />
     </issue>
-    <issue id="IconDuplicatesConfig" severity="ignore" />
+    
 </lint>
