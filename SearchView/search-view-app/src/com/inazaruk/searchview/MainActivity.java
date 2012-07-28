@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.backport.SearchView;
 import android.widget.backport.SearchView.OnQueryTextListener;
 
+import com.inazaruk.searchview.R;
+
 public class MainActivity extends SherlockActivity implements OnQueryTextListener {
 
     @Override

@@ -16,8 +16,8 @@
 
 package android.widget.backport;
 
+import com.actionbarsherlock.searchview.R;
 import com.actionbarsherlock.view.CollapsibleActionView;
-import com.inazaruk.searchview.R;
 
 import android.app.PendingIntent;
 import android.app.SearchManager;
