@@ -4,7 +4,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.searchview.OnQueryTextListener;
-import com.actionbarsherlock.widget.searchview.SearchView;
+import com.actionbarsherlock.widget.searchview.internal.CompatSearchView;
 
 import android.annotation.TargetApi;
 import android.os.Bundle;
@@ -35,7 +35,7 @@ public class MainActivity extends SherlockActivity implements OnQueryTextListene
         MenuItem item = menu.add("search");
         item.setIcon(android.R.drawable.ic_menu_search);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        SearchView sv = new SearchView(this);
+        CompatSearchView sv = new CompatSearchView(this);
         sv.setQuery("test", false);
         sv.setOnQueryTextListener(this);
         sv.setSubmitButtonEnabled(true);

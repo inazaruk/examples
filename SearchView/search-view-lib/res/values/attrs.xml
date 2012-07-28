@@ -26,8 +26,8 @@
         
         <!-- Background drawable for standalone items that need focus/pressed states. -->
         <attr name="selectableItemBackground" format="reference" />
-        
-        <!-- SearchView dropdown background -->
+                
+        <!-- SearchView dropdown background -->        
         <attr name="searchDropdownBackground" format="reference" />
         <!-- SearchView close button icon -->
         <attr name="searchViewCloseIcon" format="reference" />
@@ -45,6 +45,8 @@
         <attr name="searchViewTextField" format="reference" />
         <!-- SearchView text field background for the right section -->
         <attr name="searchViewTextFieldRight" format="reference" />
+        <!-- SearchView dropdown background -->
+        <attr name="searchViewTextColor" format="reference|color" />
     </declare-styleable>
     
     <declare-styleable name="SearchView">

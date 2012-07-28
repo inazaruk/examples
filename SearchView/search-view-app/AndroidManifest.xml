@@ -10,7 +10,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.SearchView.Dark" >
+        android:theme="@style/Theme.Sherlock.SearchView.Light.DarkActionBar" >
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >

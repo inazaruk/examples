@@ -43,6 +43,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -610,7 +611,7 @@ public class CompatSearchView extends LinearLayout implements CollapsibleActionV
         }
     };
 
-    public static class SearchAutoComplete extends TextView {
+    public static class SearchAutoComplete extends AutoCompleteTextView {
         
         private CompatSearchView mSearchView;
 
@@ -628,6 +629,24 @@ public class CompatSearchView extends LinearLayout implements CollapsibleActionV
 
         void setSearchView(CompatSearchView searchView) {
             mSearchView = searchView;
+        }
+
+        /**
+         * We override this method to avoid replacing the query box text when a
+         * suggestion is clicked.
+         */
+        @Override
+        protected void replaceText(CharSequence text) {
+        }
+
+        /**
+         * We override this method to avoid an extra onItemClick being called on
+         * the drop-down's OnItemClickListener by
+         * {@link AutoCompleteTextView#onKeyUp(int, KeyEvent)} when an item is
+         * clicked with the trackball.
+         */
+        @Override
+        public void performCompletion() {
         }
         
         /**

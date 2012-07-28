@@ -17,21 +17,13 @@
 */
 -->
 <resources>
-    
-    <style name="Theme.SearchView" parent="@style/Theme.Sherlock">
         
-        <item name="selectableItemBackground">@drawable/item_background</item>
-        
-        <!-- SearchView attributes -->        
-        <item name="searchDropdownBackground">@drawable/spinner_dropdown_background</item>     
-        <item name="searchViewEditQueryBackground">?attr/selectableItemBackground</item>
-    </style>
-    
-    <style name="Theme.SearchView.Dark">
+    <style name="Theme.Sherlock.SearchView" parent="Theme.Sherlock">
         <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
         
         <!-- SearchView attributes -->
-        <item name="searchDropdownBackground">@drawable/search_dropdown_dark</item>        
+        <item name="searchDropdownBackground">@drawable/search_dropdown_dark</item>
+        <item name="searchViewTextColor">?attr/actionMenuTextColor</item>        
         <item name="searchViewTextField">@drawable/textfield_searchview_holo_dark</item>
         <item name="searchViewTextFieldRight">@drawable/textfield_searchview_right_holo_dark</item>
         <item name="searchViewCloseIcon">@drawable/ic_clear</item>
@@ -39,20 +31,38 @@
         <item name="searchViewGoIcon">@drawable/ic_go</item>
         <item name="searchViewVoiceIcon">@drawable/ic_voice_search</item>
         <item name="searchViewEditQuery">@drawable/ic_commit_search_api_holo_dark</item>
-        
+        <item name="searchViewEditQueryBackground">?attr/selectableItemBackground</item>
     </style>
     
-    <style name="Theme.SearchView.Light">
-        <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+    <style name="Theme.Sherlock.SearchView.Light.DarkActionBar" parent="Theme.Sherlock.Light.DarkActionBar">
+        <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
         
         <!-- SearchView attributes -->
+        <item name="searchDropdownBackground">@drawable/search_dropdown_dark</item>
+        <item name="searchViewTextColor">?attr/actionMenuTextColor</item>        
+        <item name="searchViewTextField">@drawable/textfield_searchview_holo_dark</item>
+        <item name="searchViewTextFieldRight">@drawable/textfield_searchview_right_holo_dark</item>
+        <item name="searchViewCloseIcon">@drawable/ic_clear</item>
+        <item name="searchViewSearchIcon">@drawable/ic_search</item>
+        <item name="searchViewGoIcon">@drawable/ic_go</item>
+        <item name="searchViewVoiceIcon">@drawable/ic_voice_search</item>
+        <item name="searchViewEditQuery">@drawable/ic_commit_search_api_holo_dark</item>
+        <item name="searchViewEditQueryBackground">?attr/selectableItemBackground</item>
+    </style>
+    
+    <style name="Theme.Sherlock.SearchView.Light" parent="Theme.Sherlock.Light">
+        <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+
+        <!-- SearchView attributes -->
         <item name="searchDropdownBackground">@drawable/search_dropdown_light</item>
+        <item name="searchViewTextColor">?attr/actionMenuTextColor</item>
         <item name="searchViewTextField">@drawable/textfield_searchview_holo_light</item>
         <item name="searchViewTextFieldRight">@drawable/textfield_searchview_right_holo_light</item>
         <item name="searchViewCloseIcon">@drawable/ic_clear_holo_light</item>
         <item name="searchViewSearchIcon">@drawable/ic_search_api_holo_light</item>
         <item name="searchViewGoIcon">@drawable/ic_go_search_api_holo_light</item>
         <item name="searchViewVoiceIcon">@drawable/ic_voice_search_api_holo_light</item>
-        <item name="searchViewEditQuery">@drawable/ic_commit_search_api_holo_light</item>        
+        <item name="searchViewEditQuery">@drawable/ic_commit_search_api_holo_light</item>
+        <item name="searchViewEditQueryBackground">?attr/selectableItemBackground</item>        
     </style>
 </resources>
