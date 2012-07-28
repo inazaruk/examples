@@ -18,7 +18,7 @@
 -->
 <resources>
     
-    <style name="Theme.SearchView" parent="@android:style/Theme">
+    <style name="Theme.SearchView" parent="@style/Theme.Sherlock">
         
         <item name="selectableItemBackground">@drawable/item_background</item>
         

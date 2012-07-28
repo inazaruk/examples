@@ -5,8 +5,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.os.Bundle;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
+import android.widget.backport.SearchView;
+import android.widget.backport.SearchView.OnQueryTextListener;
 
 public class MainActivity extends SherlockActivity implements OnQueryTextListener {
 

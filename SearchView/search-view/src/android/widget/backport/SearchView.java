@@ -16,6 +16,7 @@
 
 package android.widget.backport;
 
+import com.actionbarsherlock.view.CollapsibleActionView;
 import com.inazaruk.searchview.R;
 
 import android.app.PendingIntent;
@@ -38,7 +39,6 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v4.widget.CursorAdapter;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -47,12 +47,9 @@ import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.CollapsibleActionView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -61,7 +58,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -147,7 +143,8 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
                     getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
             if (imm != null) {
-                imm.showSoftInputUnchecked(0, null);
+                //TODO: this was commented out during back porting
+                //imm.showSoftInputUnchecked(0, null);
             }
         }
     };
@@ -160,9 +157,10 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
 
     private Runnable mReleaseCursorRunnable = new Runnable() {
         public void run() {
-            if (mSuggestionsAdapter != null && mSuggestionsAdapter instanceof SuggestionsAdapter) {
-                mSuggestionsAdapter.changeCursor(null);
-            }
+//TODO: this was commented out during back porting
+//            if (mSuggestionsAdapter != null && mSuggestionsAdapter instanceof SuggestionsAdapter) {
+//                mSuggestionsAdapter.changeCursor(null);
+//            }
         }
     };
 
@@ -323,14 +321,15 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
 
         mDropDownAnchor = findViewById(mQueryTextView.getDropDownAnchor());
         if (mDropDownAnchor != null) {
-            mDropDownAnchor.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                    adjustDropDownSizeAndPosition();
-                }
-
-            });
+//TODO: this was commented out during back porting            
+//            mDropDownAnchor.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+//                @Override
+//                public void onLayoutChange(View v, int left, int top, int right, int bottom,
+//                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                    adjustDropDownSizeAndPosition();
+//                }
+//
+//            });
         }
 
         updateViewsVisibility(mIconifiedByDefault);
@@ -348,7 +347,8 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
     public void setSearchableInfo(SearchableInfo searchable) {
         mSearchable = searchable;
         if (mSearchable != null) {
-            updateSearchAutoComplete();
+            //TODO: this was commented out during back porting
+            //updateSearchAutoComplete();
             updateQueryHint();
         }
         // Cache the voice search capability
@@ -652,10 +652,11 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      */
     public void setQueryRefinementEnabled(boolean enable) {
         mQueryRefinement = enable;
-        if (mSuggestionsAdapter instanceof SuggestionsAdapter) {
-            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(
-                    enable ? SuggestionsAdapter.REFINE_ALL : SuggestionsAdapter.REFINE_BY_ENTRY);
-        }
+//TODO: this was commented out during back porting
+//        if (mSuggestionsAdapter instanceof SuggestionsAdapter) {
+//            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(
+//                    enable ? SuggestionsAdapter.REFINE_ALL : SuggestionsAdapter.REFINE_BY_ENTRY);
+//        }
     }
 
     /**
@@ -887,12 +888,14 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
 
         // if it's an action specified by the searchable activity, launch the
         // entered query with the action key
-        SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
-        if ((actionKey != null) && (actionKey.getQueryActionMsg() != null)) {
-            launchQuerySearch(keyCode, actionKey.getQueryActionMsg(), mQueryTextView.getText()
-                    .toString());
-            return true;
-        }
+        
+//TODO: this was commented out during back porting        
+//        SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
+//        if ((actionKey != null) && (actionKey.getQueryActionMsg() != null)) {
+//            launchQuerySearch(keyCode, actionKey.getQueryActionMsg(), mQueryTextView.getText()
+//                    .toString());
+//            return true;
+//        }
 
         return super.onKeyDown(keyCode, event);
     }
@@ -916,33 +919,34 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
 
             // If a suggestion is selected, handle enter, search key, and action keys
             // as presses on the selected suggestion
-            if (mQueryTextView.isPopupShowing()
-                    && mQueryTextView.getListSelection() != ListView.INVALID_POSITION) {
-                return onSuggestionsKey(v, keyCode, event);
-            }
-
-            // If there is text in the query box, handle enter, and action keys
-            // The search key is handled by the dialog's onKeyDown().
-            if (!mQueryTextView.isEmpty() && event.hasNoModifiers()) {
-                if (event.getAction() == KeyEvent.ACTION_UP) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        v.cancelLongPress();
-
-                        // Launch as a regular search.
-                        launchQuerySearch(KeyEvent.KEYCODE_UNKNOWN, null, mQueryTextView.getText()
-                                .toString());
-                        return true;
-                    }
-                }
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
-                    if ((actionKey != null) && (actionKey.getQueryActionMsg() != null)) {
-                        launchQuerySearch(keyCode, actionKey.getQueryActionMsg(), mQueryTextView
-                                .getText().toString());
-                        return true;
-                    }
-                }
-            }
+//TODO: this was commented out during back porting            
+//            if (mQueryTextView.isPopupShowing()
+//                    && mQueryTextView.getListSelection() != ListView.INVALID_POSITION) {
+//                return onSuggestionsKey(v, keyCode, event);
+//            }
+//
+//            // If there is text in the query box, handle enter, and action keys
+//            // The search key is handled by the dialog's onKeyDown().
+//            if (!mQueryTextView.isEmpty() && event.hasNoModifiers()) {
+//                if (event.getAction() == KeyEvent.ACTION_UP) {
+//                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                        v.cancelLongPress();
+//
+//                        // Launch as a regular search.
+//                        launchQuerySearch(KeyEvent.KEYCODE_UNKNOWN, null, mQueryTextView.getText()
+//                                .toString());
+//                        return true;
+//                    }
+//                }
+//                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//                    SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
+//                    if ((actionKey != null) && (actionKey.getQueryActionMsg() != null)) {
+//                        launchQuerySearch(keyCode, actionKey.getQueryActionMsg(), mQueryTextView
+//                                .getText().toString());
+//                        return true;
+//                    }
+//                }
+//            }
             return false;
         }
     };
@@ -952,67 +956,68 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      * action keys. If not handled, try refocusing regular characters into the
      * EditText.
      */
-    private boolean onSuggestionsKey(View v, int keyCode, KeyEvent event) {
-        // guard against possible race conditions (late arrival after dismiss)
-        if (mSearchable == null) {
-            return false;
-        }
-        if (mSuggestionsAdapter == null) {
-            return false;
-        }
-        if (event.getAction() == KeyEvent.ACTION_DOWN && event.hasNoModifiers()) {
-            // First, check for enter or search (both of which we'll treat as a
-            // "click")
-            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_SEARCH
-                    || keyCode == KeyEvent.KEYCODE_TAB) {
-                int position = mQueryTextView.getListSelection();
-                return onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
-            }
-
-            // Next, check for left/right moves, which we use to "return" the
-            // user to the edit view
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                // give "focus" to text editor, with cursor at the beginning if
-                // left key, at end if right key
-                // TODO: Reverse left/right for right-to-left languages, e.g.
-                // Arabic
-                int selPoint = (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) ? 0 : mQueryTextView
-                        .length();
-                mQueryTextView.setSelection(selPoint);
-                mQueryTextView.setListSelection(0);
-                mQueryTextView.clearListSelection();
-                mQueryTextView.ensureImeVisible(true);
-
-                return true;
-            }
-
-            // Next, check for an "up and out" move
-            if (keyCode == KeyEvent.KEYCODE_DPAD_UP && 0 == mQueryTextView.getListSelection()) {
-                // TODO: restoreUserQuery();
-                // let ACTV complete the move
-                return false;
-            }
-
-            // Next, check for an "action key"
-            SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
-            if ((actionKey != null)
-                    && ((actionKey.getSuggestActionMsg() != null) || (actionKey
-                            .getSuggestActionMsgColumn() != null))) {
-                // launch suggestion using action key column
-                int position = mQueryTextView.getListSelection();
-                if (position != ListView.INVALID_POSITION) {
-                    Cursor c = mSuggestionsAdapter.getCursor();
-                    if (c.moveToPosition(position)) {
-                        final String actionMsg = getActionKeyMessage(c, actionKey);
-                        if (actionMsg != null && (actionMsg.length() > 0)) {
-                            return onItemClicked(position, keyCode, actionMsg);
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
+//TODO: this was commented out during back porting
+//    private boolean onSuggestionsKey(View v, int keyCode, KeyEvent event) {
+//        // guard against possible race conditions (late arrival after dismiss)
+//        if (mSearchable == null) {
+//            return false;
+//        }
+//        if (mSuggestionsAdapter == null) {
+//            return false;
+//        }
+//        if (event.getAction() == KeyEvent.ACTION_DOWN && event.hasNoModifiers()) {
+//            // First, check for enter or search (both of which we'll treat as a
+//            // "click")
+//            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_SEARCH
+//                    || keyCode == KeyEvent.KEYCODE_TAB) {
+//                int position = mQueryTextView.getListSelection();
+//                return onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
+//            }
+//
+//            // Next, check for left/right moves, which we use to "return" the
+//            // user to the edit view
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+//                // give "focus" to text editor, with cursor at the beginning if
+//                // left key, at end if right key
+//                // TODO: Reverse left/right for right-to-left languages, e.g.
+//                // Arabic
+//                int selPoint = (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) ? 0 : mQueryTextView
+//                        .length();
+//                mQueryTextView.setSelection(selPoint);
+//                mQueryTextView.setListSelection(0);
+//                mQueryTextView.clearListSelection();
+//                mQueryTextView.ensureImeVisible(true);
+//
+//                return true;
+//            }
+//
+//            // Next, check for an "up and out" move
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_UP && 0 == mQueryTextView.getListSelection()) {
+//                // TODO: restoreUserQuery();
+//                // let ACTV complete the move
+//                return false;
+//            }
+//
+//            // Next, check for an "action key"
+//            SearchableInfo.ActionKeyInfo actionKey = mSearchable.findActionKey(keyCode);
+//            if ((actionKey != null)
+//                    && ((actionKey.getSuggestActionMsg() != null) || (actionKey
+//                            .getSuggestActionMsgColumn() != null))) {
+//                // launch suggestion using action key column
+//                int position = mQueryTextView.getListSelection();
+//                if (position != ListView.INVALID_POSITION) {
+//                    Cursor c = mSuggestionsAdapter.getCursor();
+//                    if (c.moveToPosition(position)) {
+//                        final String actionMsg = getActionKeyMessage(c, actionKey);
+//                        if (actionMsg != null && (actionMsg.length() > 0)) {
+//                            return onItemClicked(position, keyCode, actionMsg);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * For a given suggestion and a given cursor row, get the action message. If
@@ -1025,21 +1030,22 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      * @return Returns a string, or null if no action key message for this
      *         suggestion
      */
-    private static String getActionKeyMessage(Cursor c, SearchableInfo.ActionKeyInfo actionKey) {
-        String result = null;
-        // check first in the cursor data, for a suggestion-specific message
-        final String column = actionKey.getSuggestActionMsgColumn();
-        if (column != null) {
-            result = SuggestionsAdapter.getColumnString(c, column);
-        }
-        // If the cursor didn't give us a message, see if there's a single
-        // message defined
-        // for the actionkey (for all suggestions)
-        if (result == null) {
-            result = actionKey.getSuggestActionMsg();
-        }
-        return result;
-    }
+//TODO: this was commented out during back porting
+//    private static String getActionKeyMessage(Cursor c, SearchableInfo.ActionKeyInfo actionKey) {
+//        String result = null;
+//        // check first in the cursor data, for a suggestion-specific message
+//        final String column = actionKey.getSuggestActionMsgColumn();
+//        if (column != null) {
+//            result = SuggestionsAdapter.getColumnString(c, column);
+//        }
+//        // If the cursor didn't give us a message, see if there's a single
+//        // message defined
+//        // for the actionkey (for all suggestions)
+//        if (result == null) {
+//            result = actionKey.getSuggestActionMsg();
+//        }
+//        return result;
+//    }
 
     private int getSearchIconId() {
         TypedValue outValue = new TypedValue();
@@ -1081,43 +1087,44 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
     /**
      * Updates the auto-complete text view.
      */
-    private void updateSearchAutoComplete() {
-        mQueryTextView.setDropDownAnimationStyle(0); // no animation
-        mQueryTextView.setThreshold(mSearchable.getSuggestThreshold());
-        mQueryTextView.setImeOptions(mSearchable.getImeOptions());
-        int inputType = mSearchable.getInputType();
-        // We only touch this if the input type is set up for text (which it almost certainly
-        // should be, in the case of search!)
-        if ((inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_TEXT) {
-            // The existence of a suggestions authority is the proxy for "suggestions
-            // are available here"
-            inputType &= ~InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
-            if (mSearchable.getSuggestAuthority() != null) {
-                inputType |= InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
-                // TYPE_TEXT_FLAG_AUTO_COMPLETE means that the text editor is performing
-                // auto-completion based on its own semantics, which it will present to the user
-                // as they type. This generally means that the input method should not show its
-                // own candidates, and the spell checker should not be in action. The text editor
-                // supplies its candidates by calling InputMethodManager.displayCompletions(),
-                // which in turn will call InputMethodSession.displayCompletions().
-                inputType |= InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-            }
-        }
-        mQueryTextView.setInputType(inputType);
-        if (mSuggestionsAdapter != null) {
-            mSuggestionsAdapter.changeCursor(null);
-        }
-        // attach the suggestions adapter, if suggestions are available
-        // The existence of a suggestions authority is the proxy for "suggestions available here"
-        if (mSearchable.getSuggestAuthority() != null) {
-            mSuggestionsAdapter = new SuggestionsAdapter(getContext(),
-                    this, mSearchable, mOutsideDrawablesCache);
-            mQueryTextView.setAdapter(mSuggestionsAdapter);
-            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(
-                    mQueryRefinement ? SuggestionsAdapter.REFINE_ALL
-                    : SuggestionsAdapter.REFINE_BY_ENTRY);
-        }
-    }
+//TODO: this was commented out during back porting    
+//    private void updateSearchAutoComplete() {
+//        mQueryTextView.setDropDownAnimationStyle(0); // no animation
+//        mQueryTextView.setThreshold(mSearchable.getSuggestThreshold());
+//        mQueryTextView.setImeOptions(mSearchable.getImeOptions());
+//        int inputType = mSearchable.getInputType();
+//        // We only touch this if the input type is set up for text (which it almost certainly
+//        // should be, in the case of search!)
+//        if ((inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_TEXT) {
+//            // The existence of a suggestions authority is the proxy for "suggestions
+//            // are available here"
+//            inputType &= ~InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+//            if (mSearchable.getSuggestAuthority() != null) {
+//                inputType |= InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+//                // TYPE_TEXT_FLAG_AUTO_COMPLETE means that the text editor is performing
+//                // auto-completion based on its own semantics, which it will present to the user
+//                // as they type. This generally means that the input method should not show its
+//                // own candidates, and the spell checker should not be in action. The text editor
+//                // supplies its candidates by calling InputMethodManager.displayCompletions(),
+//                // which in turn will call InputMethodSession.displayCompletions().
+//                inputType |= InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+//            }
+//        }
+//        mQueryTextView.setInputType(inputType);
+//        if (mSuggestionsAdapter != null) {
+//            mSuggestionsAdapter.changeCursor(null);
+//        }
+//        // attach the suggestions adapter, if suggestions are available
+//        // The existence of a suggestions authority is the proxy for "suggestions available here"
+//        if (mSearchable.getSuggestAuthority() != null) {
+//            mSuggestionsAdapter = new SuggestionsAdapter(getContext(),
+//                    this, mSearchable, mOutsideDrawablesCache);
+//            mQueryTextView.setAdapter(mSuggestionsAdapter);
+//            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(
+//                    mQueryRefinement ? SuggestionsAdapter.REFINE_ALL
+//                    : SuggestionsAdapter.REFINE_BY_ENTRY);
+//        }
+//    }
 
     /**
      * Update the visibility of the voice button.  There are actually two voice search modes,
@@ -1271,17 +1278,18 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
         setIconified(false);
     }
 
-    @Override
-    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-        super.onInitializeAccessibilityEvent(event);
-        event.setClassName(SearchView.class.getName());
-    }
-
-    @Override
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(SearchView.class.getName());
-    }
+//TODO: this was commented out during back porting    
+//    @Override
+//    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+//        super.onInitializeAccessibilityEvent(event);
+//        event.setClassName(SearchView.class.getName());
+//    }
+//
+//    @Override
+//    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+//        super.onInitializeAccessibilityNodeInfo(info);
+//        info.setClassName(SearchView.class.getName());
+//    }
 
     private void adjustDropDownSizeAndPosition() {
         if (mDropDownAnchor.getWidth() > 1) {
@@ -1301,13 +1309,14 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
     }
 
     private boolean onItemClicked(int position, int actionKey, String actionMsg) {
-        if (mOnSuggestionListener == null
-                || !mOnSuggestionListener.onSuggestionClick(position)) {
-            launchSuggestion(position, KeyEvent.KEYCODE_UNKNOWN, null);
-            setImeVisibility(false);
-            dismissSuggestions();
-            return true;
-        }
+//TODO: this was commented out during back porting        
+//        if (mOnSuggestionListener == null
+//                || !mOnSuggestionListener.onSuggestionClick(position)) {
+//            launchSuggestion(position, KeyEvent.KEYCODE_UNKNOWN, null);
+//            setImeVisibility(false);
+//            dismissSuggestions();
+//            return true;
+//        }
         return false;
     }
 
@@ -1386,19 +1395,20 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      *        or <code>null</code> if none.
      * @return true if a successful launch, false if could not (e.g. bad position).
      */
-    private boolean launchSuggestion(int position, int actionKey, String actionMsg) {
-        Cursor c = mSuggestionsAdapter.getCursor();
-        if ((c != null) && c.moveToPosition(position)) {
-
-            Intent intent = createIntentFromSuggestion(c, actionKey, actionMsg);
-
-            // launch the intent
-            launchIntent(intent);
-
-            return true;
-        }
-        return false;
-    }
+//TODO: this was commented out during back porting    
+//    private boolean launchSuggestion(int position, int actionKey, String actionMsg) {
+//        Cursor c = mSuggestionsAdapter.getCursor();
+//        if ((c != null) && c.moveToPosition(position)) {
+//
+//            Intent intent = createIntentFromSuggestion(c, actionKey, actionMsg);
+//
+//            // launch the intent
+//            launchIntent(intent);
+//
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * Launches an intent, including any special intent handling.
@@ -1420,7 +1430,9 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      * Sets the text in the query box, without updating the suggestions.
      */
     private void setQuery(CharSequence query) {
-        mQueryTextView.setText(query, true);
+        //TODO: this was commented out during back porting
+        //mQueryTextView.setText(query, true);
+        mQueryTextView.setText(query);
         // Move the cursor to the end
         mQueryTextView.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
     }
@@ -1561,52 +1573,53 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
      *        or <code>null</code> if none.
      * @return An intent for the suggestion at the cursor's position.
      */
-    private Intent createIntentFromSuggestion(Cursor c, int actionKey, String actionMsg) {
-        try {
-            // use specific action if supplied, or default action if supplied, or fixed default
-            String action = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_ACTION);
-
-            if (action == null) {
-                action = mSearchable.getSuggestIntentAction();
-            }
-            if (action == null) {
-                action = Intent.ACTION_SEARCH;
-            }
-
-            // use specific data if supplied, or default data if supplied
-            String data = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_DATA);
-            if (data == null) {
-                data = mSearchable.getSuggestIntentData();
-            }
-            // then, if an ID was provided, append it.
-            if (data != null) {
-                String id = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
-                if (id != null) {
-                    data = data + "/" + Uri.encode(id);
-                }
-            }
-            Uri dataUri = (data == null) ? null : Uri.parse(data);
-
-            String query = getColumnString(c, SearchManager.SUGGEST_COLUMN_QUERY);
-            String extraData = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA);
-
-            return createIntent(action, dataUri, extraData, query, actionKey, actionMsg);
-        } catch (RuntimeException e ) {
-            int rowNum;
-            try {                       // be really paranoid now
-                rowNum = c.getPosition();
-            } catch (RuntimeException e2 ) {
-                rowNum = -1;
-            }
-            Log.w(LOG_TAG, "Search Suggestions cursor at row " + rowNum +
-                            " returned exception" + e.toString());
-            return null;
-        }
-    }
+//TODO: this was commented out during back porting    
+//    private Intent createIntentFromSuggestion(Cursor c, int actionKey, String actionMsg) {
+//        try {
+//            // use specific action if supplied, or default action if supplied, or fixed default
+//            String action = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_ACTION);
+//
+//            if (action == null) {
+//                action = mSearchable.getSuggestIntentAction();
+//            }
+//            if (action == null) {
+//                action = Intent.ACTION_SEARCH;
+//            }
+//
+//            // use specific data if supplied, or default data if supplied
+//            String data = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_DATA);
+//            if (data == null) {
+//                data = mSearchable.getSuggestIntentData();
+//            }
+//            // then, if an ID was provided, append it.
+//            if (data != null) {
+//                String id = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+//                if (id != null) {
+//                    data = data + "/" + Uri.encode(id);
+//                }
+//            }
+//            Uri dataUri = (data == null) ? null : Uri.parse(data);
+//
+//            String query = getColumnString(c, SearchManager.SUGGEST_COLUMN_QUERY);
+//            String extraData = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA);
+//
+//            return createIntent(action, dataUri, extraData, query, actionKey, actionMsg);
+//        } catch (RuntimeException e ) {
+//            int rowNum;
+//            try {                       // be really paranoid now
+//                rowNum = c.getPosition();
+//            } catch (RuntimeException e2 ) {
+//                rowNum = -1;
+//            }
+//            Log.w(LOG_TAG, "Search Suggestions cursor at row " + rowNum +
+//                            " returned exception" + e.toString());
+//            return null;
+//        }
+//    }
 
     private void forceSuggestionQuery() {
-        mQueryTextView.doBeforeTextChanged();
-        mQueryTextView.doAfterTextChanged();
+//        mQueryTextView.doBeforeTextChanged();
+//        mQueryTextView.doAfterTextChanged();
     }
 
     static boolean isLandscapeMode(Context context) {
@@ -1704,7 +1717,8 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
                 // If in landscape mode, then make sure that
                 // the ime is in front of the dropdown.
                 if (isLandscapeMode(getContext())) {
-                    ensureImeVisible(true);
+                    //TODO: this was commented out during back porting
+                    //ensureImeVisible(true);
                 }
             }
         }
